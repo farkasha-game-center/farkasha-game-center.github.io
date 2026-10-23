@@ -7,42 +7,27 @@
   <title>تحميل تطبيقات وألعاب أندرويد مجاناً</title>
   <style>
     * { box-sizing: border-box; }
-    body {
-      margin: 0; font-family: Tahoma, Arial, sans-serif;
-      background: #f3f5fa; color: #182238; line-height: 1.8;
-    }
-    header {
-      background: linear-gradient(135deg, #211b45, #5136a6);
-      color: #fff; text-align: center; padding: 42px 18px 34px;
-    }
-    h1 { font-size: clamp(25px, 5vw, 36px); line-height: 1.5; margin: 0 auto 10px; max-width: 760px; }
-    header p { color: #e2ddff; margin: 0; }
-    main { max-width: 780px; margin: 25px auto; padding: 0 16px 40px; }
-    .site-link {
-      display: block; padding: 19px; margin-bottom: 24px; border-radius: 18px;
-      background: #fff; border: 1px solid #e3e6ef; text-align: center;
-      text-decoration: none; color: #4b32a0; font-weight: bold;
-      box-shadow: 0 4px 14px #1822380a;
-    }
-    .site-link span { display: block; color: #68738a; font-size: 13px; font-weight: normal; }
-    .games-title { font-size: 23px; margin: 20px 0 14px; }
-    .game {
-      background: #fff; border: 1px solid #e3e6ef; border-radius: 20px;
-      padding: 23px; margin-bottom: 17px; box-shadow: 0 5px 20px #1822380a;
-    }
-    .game h3 { margin: 0 0 5px; font-size: 21px; }
-    .game p { color: #68738a; font-size: 14px; margin: 0 0 17px; }
-    .download {
-      display: block; background: #6845d2; color: #fff; text-align: center;
-      text-decoration: none; font-weight: bold; padding: 13px; border-radius: 12px;
-      border: 0; cursor: pointer; min-height: 52px; transition: background .2s;
-    }
-    .download:hover { background: #5133b0; }
-    .download[aria-busy="true"] { background: #18775e; cursor: not-allowed; opacity: .92; }
-    .timer { display: inline-block; min-width: 25px; margin-right: 5px; font-variant-numeric: tabular-nums; }
-    .download-note { display: none; margin-top: 9px; color: #18775e; font-size: 13px; text-align: center; }
-    .download-note.show { display: block; }
-    footer { text-align: center; color: #778097; font-size: 12px; padding: 16px; }
+    body { margin:0; font-family:Tahoma,Arial,sans-serif; background:#f3f5fa; color:#182238; line-height:1.8; }
+    header { background:linear-gradient(135deg,#211b45,#5136a6); color:#fff; text-align:center; padding:42px 18px 34px; }
+    h1 { font-size:clamp(25px,5vw,36px); line-height:1.5; margin:0 auto 10px; max-width:760px; }
+    header p { color:#e2ddff; margin:0; }
+    main { max-width:780px; margin:25px auto; padding:0 16px 40px; }
+    .site-link { display:block; padding:19px; margin-bottom:24px; border-radius:18px; background:#fff; border:1px solid #e3e6ef; text-align:center; text-decoration:none; color:#4b32a0; font-weight:bold; box-shadow:0 4px 14px #1822380a; }
+    .site-link span { display:block; color:#68738a; font-size:13px; font-weight:normal; }
+    .games-title { font-size:23px; margin:20px 0 14px; }
+    .game { background:#fff; border:1px solid #e3e6ef; border-radius:20px; padding:23px; margin-bottom:17px; box-shadow:0 5px 20px #1822380a; }
+    .game h3 { margin:0 0 5px; font-size:21px; }
+    .game p { color:#68738a; font-size:14px; margin:0 0 17px; }
+    .download { display:block; background:#6845d2; color:#fff; text-align:center; text-decoration:none; font-weight:bold; padding:13px; border-radius:12px; border:0; cursor:pointer; min-height:52px; transition:background .2s; }
+    .download:hover { background:#5133b0; }
+    .download[aria-disabled="true"] { background:#18775e; cursor:not-allowed; opacity:.95; pointer-events:none; }
+    .timer { display:inline-block; min-width:22px; margin-inline:4px; font-variant-numeric:tabular-nums; font-size:1.1em; }
+    .status-banner { display:none; position:sticky; top:8px; z-index:10; border-radius:14px; background:#e2f7ed; color:#116447; border:1px solid #a4e2c6; padding:14px 16px; margin-bottom:18px; text-align:center; box-shadow:0 5px 18px #18223814; }
+    .status-banner.show { display:block; }
+    .status-banner strong { display:block; }
+    .banner-count { font-size:24px; font-weight:bold; margin:0 5px; font-variant-numeric:tabular-nums; }
+    .hint { display:block; font-size:12px; color:#286e56; margin-top:4px; }
+    footer { text-align:center; color:#778097; font-size:12px; padding:16px; }
   </style>
 </head>
 <body>
@@ -55,56 +40,88 @@
       زيارة موقع TraidModz ↗
       <span>اضغط هنا لفتح الموقع</span>
     </a>
+
+    <div id="downloadStatus" class="status-banner" role="status" aria-live="polite">
+      <strong id="statusTitle">تم طلب تنزيل الملف</strong>
+      <span>انتظر <span id="bannerCount" class="banner-count">10</span> ثوانٍ قبل الضغط على زر تنزيل آخر.</span>
+      <span class="hint">تحقق من قائمة التنزيلات في المتصفح. العداد يمنع تكرار الضغط، لكنه لا يؤكد اكتمال التنزيل.</span>
+    </div>
+
     <h2 class="games-title">🎮 الألعاب المتاحة للتنزيل</h2>
     <section class="game">
       <h3>اللعبة الأولى</h3>
       <p>حمّل اللعبة وثبّتها على جهاز Android.</p>
-      <a class="download" href="https://github.com/farkasha-game-center/farkasha-game-center.github.io/releases/download/v1.0/game1.apk" target="_blank" rel="noopener noreferrer" data-default="⬇ تنزيل اللعبة الأولى">⬇ تنزيل اللعبة الأولى</a>
-      <div class="download-note" aria-live="polite">تم بدء التنزيل. انتظر انتهاء العداد قبل المحاولة مرة أخرى، وتحقق من قسم التنزيلات.</div>
+      <a class="download" href="https://github.com/farkasha-game-center/farkasha-game-center.github.io/releases/download/v1.0/game1.apk" data-default="⬇ تنزيل اللعبة الأولى">⬇ تنزيل اللعبة الأولى</a>
     </section>
     <section class="game">
       <h3>اللعبة الثانية</h3>
       <p>حمّل اللعبة وثبّتها على جهاز Android.</p>
-      <a class="download" href="https://github.com/farkasha-game-center/farkasha-game-center.github.io/releases/download/v1.0/game2.apk" target="_blank" rel="noopener noreferrer" data-default="⬇ تنزيل اللعبة الثانية">⬇ تنزيل اللعبة الثانية</a>
-      <div class="download-note" aria-live="polite">تم بدء التنزيل. انتظر انتهاء العداد قبل المحاولة مرة أخرى، وتحقق من قسم التنزيلات.</div>
+      <a class="download" href="https://github.com/farkasha-game-center/farkasha-game-center.github.io/releases/download/v1.0/game2.apk" data-default="⬇ تنزيل اللعبة الثانية">⬇ تنزيل اللعبة الثانية</a>
     </section>
   </main>
   <footer>© جميع الحقوق محفوظة</footer>
+
+  <!-- Hidden iframe keeps the landing page visible while the browser receives the APK response. -->
   <script>
-    document.querySelectorAll('.download').forEach(function(button) {
+    (function () {
+      const buttons = Array.from(document.querySelectorAll('.download'));
+      const banner = document.getElementById('downloadStatus');
+      const title = document.getElementById('statusTitle');
+      const bannerCount = document.getElementById('bannerCount');
+      let remaining = 0;
       let intervalId = null;
-      button.addEventListener('click', function(event) {
-        // During the cooldown, cancel the link's default action too,
-        // so another click cannot start a second APK download.
-        if (intervalId !== null) {
+      let activeButton = null;
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function (event) {
           event.preventDefault();
-          return;
-        }
+          if (intervalId !== null) return; // Do not start another download during cooldown.
 
-        // First click follows the link normally and starts the download.
-        let seconds = 10;
-        const note = button.parentElement.querySelector('.download-note');
-        button.setAttribute('aria-busy', 'true');
-        button.setAttribute('aria-disabled', 'true');
-        button.innerHTML = 'تم بدء التنزيل — انتظر <span class="timer">' + seconds + '</span> ثوانٍ';
-        if (note) note.classList.add('show');
+          activeButton = button;
+          remaining = 10;
+          title.textContent = 'تم طلب تنزيل ' + (button.dataset.gameName || 'اللعبة') + '؛ انتظر انتهاء المهلة';
+          bannerCount.textContent = String(remaining);
+          banner.classList.add('show');
 
-        intervalId = window.setInterval(function() {
-          seconds -= 1;
-          const timer = button.querySelector('.timer');
-          if (timer) timer.textContent = String(seconds);
+          // Trigger the release asset in a hidden iframe so this page remains visible for the countdown.
+          const oldFrame = document.getElementById('apkDownloadFrame');
+          if (oldFrame) oldFrame.remove();
+          const frame = document.createElement('iframe');
+          frame.id = 'apkDownloadFrame';
+          frame.name = 'apkDownloadFrame';
+          frame.title = 'APK download';
+          frame.setAttribute('aria-hidden', 'true');
+          frame.style.cssText = 'position:absolute;width:1px;height:1px;left:-10000px;top:-10000px;border:0;';
+          document.body.appendChild(frame);
+          frame.src = button.href;
 
-          if (seconds <= 0) {
-            window.clearInterval(intervalId);
-            intervalId = null;
-            button.removeAttribute('aria-busy');
-            button.removeAttribute('aria-disabled');
-            button.textContent = button.dataset.default || 'تنزيل اللعبة';
-            if (note) note.classList.remove('show');
-          }
-        }, 1000);
+          buttons.forEach(function (item) {
+            item.setAttribute('aria-disabled', 'true');
+            item.style.pointerEvents = 'none';
+          });
+          button.innerHTML = '⏳ جارٍ طلب التنزيل — <span class="timer">10</span> ثوانٍ';
+
+          intervalId = window.setInterval(function () {
+            remaining -= 1;
+            bannerCount.textContent = String(Math.max(remaining, 0));
+            const timer = activeButton && activeButton.querySelector('.timer');
+            if (timer) timer.textContent = String(Math.max(remaining, 0));
+
+            if (remaining <= 0) {
+              window.clearInterval(intervalId);
+              intervalId = null;
+              buttons.forEach(function (item) {
+                item.removeAttribute('aria-disabled');
+                item.style.pointerEvents = '';
+                item.textContent = item.dataset.default;
+              });
+              banner.classList.remove('show');
+              activeButton = null;
+            }
+          }, 1000);
+        });
       });
-    });
+    })();
   </script>
 </body>
 </html>
